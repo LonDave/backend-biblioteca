@@ -1,8 +1,13 @@
 // import
 const { Router } = require("express");
+const { tuttiAutori, autoriPerId } = require("../controllers/autori.controller");
 
+// router
 const router = new Router();
 
-// tutti autori
+// rotte
+router.get("/", tuttiAutori);
+router.get("/:id", autoriPerId);
 
-// autori by id
+// export
+module.exports = { routerAutori: router }
