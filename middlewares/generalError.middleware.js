@@ -1,6 +1,7 @@
 // import
 const { HttpError } = require("../lib/httpError");
 
+// * DONE: middlware centrale che gestisce gli errori
 const HttpErrorMiddleware = (err, req, res, next) => {
     if (err instanceof HttpError) {
         const body = { errore: err.message };

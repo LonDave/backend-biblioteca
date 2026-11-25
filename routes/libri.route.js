@@ -5,7 +5,7 @@ const { CreaLibroController, EliminaLibroController } = require("../controllers/
 // creazione router
 const router = new Router();
 
-// rotte
+// * DONE: rotte
 router.post("/", CreaLibroController);
 router.delete("/:id", EliminaLibroController);
 

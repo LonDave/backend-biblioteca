@@ -5,7 +5,7 @@ const { tuttiAutori, autoriPerId } = require("../controllers/autori.controller")
 // router
 const router = new Router();
 
-// rotte
+// * DONE: rotte
 router.get("/", tuttiAutori);
 router.get("/:id", autoriPerId);
 

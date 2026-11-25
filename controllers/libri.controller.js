@@ -4,7 +4,7 @@ const { idSchema } = require("../lib/schemaIdFiltered");
 const { HttpError } = require("../lib/httpError");
 const { CreaLibroService, TrovaLibroService, EliminaLibroService } = require("../services/libri.service");
 
-// schema per validazione zod
+// * DONE: schema libro completo
 const LibriSchema = z.object({
     id: z.number().positive(),
     titolo: z.string().min(1, "Inserire un titolo").trim().max(100),
@@ -13,7 +13,7 @@ const LibriSchema = z.object({
     autore_id: z.number().int().positive("Autore intero positivo")
 }).strict();
 
-// schema senza l'id che viene assegnato dal db
+// * DONE: schema filtrato senza ID
 const LibriSchemaFiltered = LibriSchema.omit({ id: true });
 
 // *DONE: crea libro

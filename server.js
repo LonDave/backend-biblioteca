@@ -12,9 +12,11 @@ dotEnv.config({
     path: join(__dirname, ".env")
 });
 
+// express
 const app = express();
 const PORT = process.env.PORT ?? 3000;
 
+// * DONE: inizializzo il db e poi lo popolo e faccio il resto 
 AppDataSource.initialize()
     .then(async () => {
         await PopolaDatabase(AppDataSource);
