@@ -3,13 +3,18 @@ const { HttpError } = require("../lib/httpError");
 
 const HttpErrorMiddleware = (err, req, res, next) => {
     if (err instanceof HttpError) {
-        return res.status(err.statusCode).json({ error: err.message });
+        const body = { errore: err.message };
+        if (err.dettagli) body.dettagli = err.dettagli;
+        return res.status(err.statusCode).json(body);
     };
 
-    console.log(err);
-    res.status(500).json({ error: "Errore interno al server" });
-}
+    if (err.type === "entity.parse.failed") {
+        return res.status(400).json({ errore: "JSON non valido" });
+    };
 
-module.exports = {
-    HttpErrorMiddleware
-}
+    console.error(err);
+    res.status(500).json({ errore: "Errore interno al server" });
+};
+
+// export
+module.exports = { HttpErrorMiddleware }

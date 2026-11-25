@@ -4,8 +4,10 @@ const { join } = require("node:path");
 const { AppDataSource } = require("./config/typeorm.conf");
 const { PopolaDatabase } = require("./lib/sqlite.db");
 const { routerAutori } = require("./routes/autori.route");
+const { routerLibri } = require("./routes/libri.route");
 const { HttpErrorMiddleware } = require("./middlewares/generalError.middleware");
 
+// conf variabili ambiente
 dotEnv.config({
     path: join(__dirname, ".env")
 });
@@ -22,6 +24,7 @@ AppDataSource.initialize()
 
         // * DONE: montaggio rotte
         app.use("/api/autori", routerAutori);
+        app.use("/api/libri", routerLibri);
 
         // * DONE: gestore generale err
         app.use(HttpErrorMiddleware)

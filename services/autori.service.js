@@ -5,7 +5,7 @@ const { AppDataSource } = require("../config/typeorm.conf");
 const repoAutori = () => AppDataSource.getRepository("Autore");
 
 // * DONE: funzione per trovare tutti autori e permettere ricerca by filtri
-const trovaAutori = async (filtri = {}) => {
+const trovaAutori = (filtri = {}) => {
     return repoAutori().find({
         where: filtri,
         order: { displayName: "ASC" }          //-> ordine A-Z
@@ -13,7 +13,7 @@ const trovaAutori = async (filtri = {}) => {
 };
 
 // * DONE: funzione per trovare autori per id
-const ricercaAutoreById = async (id) => {
+const ricercaAutoreById = (id) => {
     return repoAutori().findOneBy({ id });
 }
 
