@@ -16,6 +16,9 @@ dotEnv.config({
 const app = express();
 const PORT = process.env.PORT ?? 3000;
 
+// evita di comunicare negli header che si sta usando node
+app.disable("x-powered-by");
+
 // * DONE: inizializzo il db e poi lo popolo e faccio il resto 
 AppDataSource.initialize()
     .then(async () => {
