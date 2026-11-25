@@ -15,7 +15,7 @@ dotEnv.config({
 
 // express
 const app = express();
-const PORT = process.env.PORT ?? 3000;
+const PORT = process.env.PORT ? Number(process.env.PORT) : 3000;
 
 // evita di comunicare negli header che si sta usando node
 app.disable("x-powered-by");
