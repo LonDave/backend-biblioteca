@@ -9,19 +9,34 @@ const LibriSchema = z.object({
     id: z.number().positive(),
     titolo: z.string().min(1, "Inserire un titolo").trim().max(100),
     genere: z.enum(["romanzo", "saggio", "poesia", "racconti"], "Genere non valido"),
-    anno: z.coerce.number().positive().min(1200).max(2026),
+    anno: z.number().int("Anno intero").min(1450, "Anno minimo 1450").max(2026, "Anno massimo 2026"), 
     autore_id: z.number().int().positive("Autore intero positivo")
 }).strict();
 
 // * DONE: schema filtrato senza ID
 const LibriSchemaFiltered = LibriSchema.omit({ id: true });
 
+// * DONE: dettagli per errore
+const toDettagli = (error) => {
+    const visti = new Set();
+    const dettagli = [];
+    for (const issue of error.issues) {
+        const campi = issue.code === "unrecognized_keys" ? issue.keys : [issue.path.join(".") || "body"];
+        for (const campo of campi) {
+            if (visti.has(campo)) continue;
+            visti.add(campo);
+            dettagli.push({ campo, messaggio: issue.message });
+        }
+    }
+    return dettagli;
+};
+
 // *DONE: crea libro
 const CreaLibroController = async (req, res) => {
     const risultato = z.safeParse(LibriSchemaFiltered, req.body);
 
     if (!risultato.success) {
-        throw new HttpError(400, "Body non valido", [{ campo: "body", messaggio: "Body inviato non valido" }]);
+        throw new HttpError(400, "Dati non validi", toDettagli(risultato.error));
     };
 
     const data = await CreaLibroService(risultato.data);
@@ -33,7 +48,7 @@ const EliminaLibroController = async (req, res) => {
     const risultato = z.safeParse(idSchema, req.params);
 
     if (!risultato.success) {
-        throw new HttpError(400, "Body non valido")
+        throw new HttpError(400, "ID non valido")
     };
 
     const libro = await TrovaLibroService(risultato.data.id);

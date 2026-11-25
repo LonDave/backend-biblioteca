@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <title>Autori</title>
+  <link rel="stylesheet" href="/stile.css">
+</head>
+<body>
+  <h1>Autori</h1>
+  <ul>
+    <% autori.forEach(a => { %>
+      <li>
+        <a href="/autori/<%= a.id %>"><%= a.nome %></a>
+        (<%= a.nazionalita %>) – <%= a.num_libri %> libri
+      </li>
+    <% }) %>
+  </ul>
+</body>
+</html>

@@ -27,7 +27,7 @@ const Autore = new EntitySchema({
         libri: {
             target: "Libro",
             type: "one-to-many",
-            inveseSide: "autore"
+            inverseSide: "autore"
         }
     }
 });

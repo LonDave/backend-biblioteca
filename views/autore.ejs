@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <title><%= autore.displayName %></title>
+  <link rel="stylesheet" href="/stile.css">
+</head>
+<body>
+  <h1><%= autore.displayName %></h1>
+  <p>Nazionalità: <%= autore.nationality %></p>
+
+  <% if (autore.libri.length === 0) { %>
+    <p>Nessun libro in catalogo</p>
+  <% } else { %>
+    <table>
+      <tr><th>Anno</th><th>Titolo</th><th>Genere</th></tr>
+      <% autore.libri.forEach(libro => { %>
+        <tr><td><%= libro.year %></td><td><%= libro.title %></td><td><%= libro.genres %></td></tr>
+      <% }) %>
+    </table>
+  <% } %>
+  
+  <p><a href="/autori">← Torna agli autori</a></p>
+</body>
+</html>
